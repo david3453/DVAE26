@@ -3,7 +3,7 @@ from sklearn.preprocessing import LabelEncoder
 import numpy as np
 from scipy import stats
 
-df = pd.read_csv('TrainingData2.1.csv')
+df = pd.read_csv('TrainingData1.1.csv')
 
 columns_to_check = ['age', 'bmi', 'avg_glucose_level']  # Replace with your actual column names
 
@@ -27,11 +27,18 @@ print("\nOutliers in the specified columns:")
 print(outliers)
 
 
+df_cleaned = df[(z_scores.abs() <= 3).all(axis=1)]
 
+# Print the cleaned DataFrame
 
+print("\nDataFrame after removing outliers:")
+print(df_cleaned.head())
 
+df_cleaned = df_cleaned.drop('age_zscore', axis=1)
+df_cleaned = df_cleaned.drop('bmi_zscore', axis=1)
+df_cleaned = df_cleaned.drop('avg_glucose_level_zscore', axis=1)
 
+print(df_cleaned.head())
 
-#print(df.head())
 # Save the transformed DataFrame to a new CSV file
-df.to_csv('TrainingData3.0TESTRUN.csv', index=False)
+df_cleaned.to_csv('TrainingData2.0.csv', index=False)
