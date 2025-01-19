@@ -30,6 +30,8 @@ df_processed['work_type_Self-employed'] = df_processed['work_type_Self-employed'
 df_processed['work_type_children'] = df_processed['work_type_children'].astype(int)
 
 
+df_processed = df_processed.drop(columns=['id'])
+df_processed['gender'] = df_processed['gender'].astype(int)
 
 
 print(df_processed.head())
