@@ -20,10 +20,15 @@ encoder = LabelEncoder()
 df_processed['smoking_status'] = encoder.fit_transform(df_processed['smoking_status'])
 
 
-#Convert true or false to 0 or 1
-#df_processed['gender'] = df_processed['gender'].astype(int)
-#df_processed['ever_married'] = df_processed['ever_married'].astype(int)
-#df_processed['Residence_type_Urban'] = df_processed['Residence_type_Urban'].astype(int)
+#Convert to 0 or 1
+df_processed['gender'] = df['gender'].map({'Male': 1, 'Female': 0})
+df_processed['ever_married'] = df_processed['ever_married'].map({'Yes': 1, 'No': 0})
+df_processed['Residence_type'] = df_processed['Residence_type'].map({'Urban': 1, 'Rural': 0})
+df_processed['work_type_Never_worked'] = df_processed['work_type_Never_worked'].astype(int)
+df_processed['work_type_Private'] = df_processed['work_type_Private'].astype(int)
+df_processed['work_type_Self-employed'] = df_processed['work_type_Self-employed'].astype(int)
+df_processed['work_type_children'] = df_processed['work_type_children'].astype(int)
+
 
 
 
