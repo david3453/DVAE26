@@ -23,6 +23,8 @@ y = df['stroke']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=40)
 
+class_weights = {0: 1, 1: 17}  # Assuming 1 is the positive class
+sample_weightArr = np.array([class_weights[y] for y in y_train])
 
 # Step 4: Further split the training set into training and validation sets
 
@@ -31,11 +33,12 @@ print("Training set shape:", X_train.shape, y_train.shape)
 print("Testing set shape:", X_test.shape, y_test.shape)
 
 settings_other = {
-    "metric": 'roc_auc',  # Pass the custom recall metric function
-    "log_file_name": "MicroF1Model.log"
+    "metric": 'f1',  # Pass the custom recall metric function
+    "log_file_name": "F1WeightedModel.log"
 }
 automl = AutoML()
-automl.fit(X_train, y_train, task="classification", time_budget=60, **settings_other)
+#automl.fit(X_train, y_train, task="classification", time_budget=60, **settings_other)
+automl.fit(X_train, y_train,task="classification", sample_weight=sample_weightArr,time_budget=60,**settings_other)
 
 
 print("\n\n\n\n")
@@ -47,14 +50,21 @@ print(automl.best_config)
 
 print("\n\n\n")
 
-plt.barh(automl.model.estimator.feature_name_, automl.model.estimator.feature_importances_)
+try:
+    # Attempt to use feature_name_ if it exists
+    feature_names = automl.model.estimator.feature_name_
+except AttributeError:
+    # Fallback to feature_names_in_ if feature_name_ does not exist
+    feature_names = automl.model.estimator.feature_names_in_
+
+plt.barh(feature_names, automl.model.estimator.feature_importances_)
 plt.xlabel('Feature Importance')
 plt.ylabel('Feature')
 plt.title('Feature Importances')
 # Display the plot
 plt.show()
 
-with open('rocAUCModel.pkl', 'wb') as model_file:
+with open('F1WeightedModel.pkl', 'wb') as model_file:
     pickle.dump(automl, model_file)
 
 print("Model saved successfully!")
