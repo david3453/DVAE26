@@ -1,15 +1,1 @@
-So a unit tetst for data preprocessing could be like, 
-if my data preprocessing step removes rows which has N/A in a column. 
-A unit test could be a function that takes as input a dataset and returns a dataset without N/A values. 
-No matter what the input dataset is, even if the input dataset is a dataset that has never been seen before.
 
-
-Exactly! A unit test for data preprocessing can be designed to ensure that your preprocessing function
- consistently removes rows with N/A values, regardless of the input dataset. This helps verify that your¨
-  preprocessing logic is robust and behaves as expected.
-  
-Token: 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
-Notebook token: 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
-Write token (Notebook tokenV2): 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
-#git clone https://huggingface.co/username/david991199
-git clone https://huggingface.co/username/repo_name
