@@ -1,16 +1,9 @@
 import pandas as pd
-from transformers import pipeline
-from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 import numpy as np
-from scipy import stats
-from huggingface_hub import Repository
-from huggingface_hub import HfApi
-from huggingface_hub import login
 
 import pickle
 #import automl
-import flaml
 from flaml import AutoML
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
@@ -30,25 +23,28 @@ y = df['stroke']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=40)
 
-
-login()
-
 with open("F1WeightedModel.pkl", "rb") as f:
-    automl = pickle.load(f)
+    myml = pickle.load(f)
 
-
-api = HfApi()
-api.create_repo(repo_id="FinalProjectRepo", exist_ok=True, private=False)
-#automl.push_to_hub("MyLab5RepoV3")
-automl.push_to_hub("MyLab5RepoV3", model_id="F1WeightedModel")
-print("\n\n\n")
-
+print(X_test.iloc[0])
+print(X_test.iloc[0,11])
+print(X_test.iloc[0,12])
+print(X_test.iloc[0,6])
 
 
 
-#print(X_test.iloc[0])
-#print(X_test.iloc[0][11])
-#print(X_test.iloc[0][12])
+for i in range(10):
+    first_row = X_test.iloc[[i]]  # Use double brackets to keep it as a DataFrame with feature names
+    predicted = myml.predict(first_row)
+    print("I is ",i ," Predicted: ", predicted[0], "\n")
+    print("Correct prediction was ", y_test.iloc[i])
+
+print(X_test.iloc[2])
+print(X_test.iloc[4])
+print(X_test.iloc[7])
+print(X_test.iloc[9])
+
+
 
 
 #pred = automl.predict(X_test)

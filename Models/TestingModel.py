@@ -14,7 +14,7 @@ from sklearn.metrics import f1_score
 from sklearn.metrics import precision_score, recall_score
 
 
-df = pd.read_csv(r'../Data/TrainingData2.0.csv')
+df = pd.read_csv(r'../Data/TrainingData3.0.csv')
 
 print("\n\n")
 
@@ -24,7 +24,7 @@ y = df['stroke']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=40)
 
 
-with open("F1WeightedModel.pkl", "rb") as f:
+with open("NewWeightedF1Model.pkl", "rb") as f:
     automl = pickle.load(f)
 pred = automl.predict(X_test)
 
