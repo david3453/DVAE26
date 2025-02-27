@@ -14,7 +14,7 @@ import ModelSelectionFile
 
 df = pd.read_csv(r'../Data/TrainingData3.0.csv')
 modelmetric = 'f1'
-modelname = 'NewWeightedF1Model'
+modelname = 'F1WeightedModel'
 modelclassweightsign = 1
 modelweight0 = 1
 modelweight1 = 17
@@ -50,7 +50,7 @@ for i in range(10):
     predicted = TrainedModel.predict(first_row)
     predicted2 = loaded_model.predict(first_row)
     if predicted[0] != predicted2[0]:
-        errorpredict = True;
+        errorpredict = True
             
 if errorpredict == True:
     print("Error: Predictions do not match.")

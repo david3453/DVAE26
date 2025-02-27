@@ -3,6 +3,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 import numpy as np
 from scipy import stats
+import os
 #import automl
 import flaml
 from flaml import AutoML
@@ -82,6 +83,8 @@ def CreateModel(NameModel, ClassWeightSign, Weight0, Weight1,
     # Display the plot
     plt.show()
 
+
+    
     with open(modelname, 'wb') as model_file:
         pickle.dump(automl, model_file)
 
